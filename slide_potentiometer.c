@@ -2,7 +2,8 @@
 #include "pico/stdlib.h"
 #include "hardware/adc.h"
 
-#define WINDOW_SIZE 10
+#define WINDOW_SIZE 100
+#define SLEEP_DUR 20
 
 int main()
 {
@@ -36,6 +37,6 @@ int main()
         uint16_t rolling_avg = window_sum / samples_collected;
 
         printf("ADC Rolling Avg: %u\n", rolling_avg);
-        sleep_ms(100);
+        sleep_ms(SLEEP_DUR);
     }
 }

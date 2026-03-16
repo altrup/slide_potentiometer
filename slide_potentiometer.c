@@ -16,6 +16,7 @@ int main()
     while (!stdio_usb_connected()) {
         sleep_ms(100);
     }
+    printf("PRESS ENTER TO MEASURE\n===============\n\n");
 
     double coefficients[DEGREE + 1] = {
         -1.57070636199206, 
@@ -33,7 +34,6 @@ int main()
     int exponents[DEGREE + 1] = {0, -2, -5, -6, -9, -11, -14, -17, -21, -24, -28};
 
     while (true) {
-        printf("Press Enter to Continue\n");
         getchar(); // wait for Enter
 
         adc_select_input(0);

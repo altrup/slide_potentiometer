@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 #include "pico/stdlib.h"
+#include "pico/stdio_usb.h"
 #include "hardware/adc.h"
 
-#define SLEEP_DUR 100
 #define DEGREE 10
 
 int main()
@@ -12,6 +12,10 @@ int main()
 
     adc_init();
     adc_gpio_init(26); // ADC0
+
+    while (!stdio_usb_connected()) {
+        sleep_ms(100);
+    }
 
     double coefficients[DEGREE + 1] = {
         -1.57070636199206, 
@@ -29,6 +33,9 @@ int main()
     int exponents[DEGREE + 1] = {0, -2, -5, -6, -9, -11, -14, -17, -21, -24, -28};
 
     while (true) {
+        printf("Press Enter to Continue\n");
+        getchar(); // wait for Enter
+
         adc_select_input(0);
         uint16_t adc = adc_read();
 
@@ -37,7 +44,6 @@ int main()
         for (int i = 0; i <= DEGREE; i ++) {
             final_mm += coefficients[i] * pow(adc, i) / pow(10, -exponents[i]);
         }
-        printf("FINAL MEASUREMENT (MM): %f\n", final_mm);
-        sleep_ms(SLEEP_DUR);
+        printf("FINAL MEASUREMENT (MM): %f\n\n", final_mm);
     }
 }

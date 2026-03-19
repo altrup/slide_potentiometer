@@ -44,6 +44,7 @@ int main()
         for (int i = 0; i <= DEGREE; i ++) {
             final_mm += coefficients[i] * pow(adc, i) / pow(10, -exponents[i]);
         }
-        printf("FINAL MEASUREMENT (MM): %f\n\n", final_mm);
+        printf("FINAL MEASUREMENT (MM): %f\n", final_mm);
+        printf("FINAL MEASUREMENT (IN): %f\n\n", final_mm / 25.4);
     }
 }
